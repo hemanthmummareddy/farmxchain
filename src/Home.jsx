@@ -31,7 +31,11 @@ const Home = () => {
 
           <div className="mt-10 flex gap-6">
             <Link
+<<<<<<< HEAD
               to="/login?mode=register"
+=======
+              to="/register"
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
               className="px-10 py-4 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition"
             >
               Get Started

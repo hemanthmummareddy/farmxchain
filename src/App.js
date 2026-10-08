@@ -66,9 +66,13 @@ function App() {
  
         {/* DISTRIBUTOR */}
          {/* Distributor Routes */}
+<<<<<<< HEAD
         <Route path="/distributor" element={<ProtectedRoute role="DISTRIBUTOR">
                                                           <DistributorLayout />
                                                         </ProtectedRoute>}>
+=======
+        <Route path="/distributor" element={<DistributorLayout />}>
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
           <Route index element={<DistributorDashboard />} />
           <Route path="dashboard" element={<DistributorDashboard />} />
           <Route path="marketplace" element={<Marketplace />} />

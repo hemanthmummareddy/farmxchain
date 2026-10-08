@@ -1,23 +1,37 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../api/api";
 import { isValidEmail, isStrongPassword } from "../utils/Validators";
+=======
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import API from "../api/api";
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+<<<<<<< HEAD
   const [searchParams] = useSearchParams();
 
   // Opens in Register mode when the URL is /login?mode=register
   const [mode, setMode] = useState(
     searchParams.get("mode") === "register" ? "register" : "login"
   );
+=======
+
+  const [mode, setMode] = useState("login");
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const [form, setForm] = useState({
+<<<<<<< HEAD
     name: "",
+=======
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
     email: "",
     password: "",
     role: "FARMER",
@@ -31,6 +45,7 @@ const Login = () => {
     }));
   };
 
+<<<<<<< HEAD
   const validateRegister = () => {
     if (!form.name.trim()) return "Please enter your full name";
     if (!isValidEmail(form.email.trim())) return "Please enter a valid email address";
@@ -55,6 +70,10 @@ const Login = () => {
       return;
     }
 
+=======
+  const handleSubmit = async () => {
+    setError("");
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
     setLoading(true);
 
     try {
@@ -70,6 +89,7 @@ const Login = () => {
         else navigate("/login");
       } else {
         await API.post("/users/register", {
+<<<<<<< HEAD
           name: form.name.trim(),
           email: form.email.trim(),
           password: form.password,
@@ -79,11 +99,21 @@ const Login = () => {
 
         alert("Account created successfully. Please login.");
         setForm((prev) => ({ ...prev, password: "" }));
+=======
+          email: form.email.trim(),
+          password: form.password,
+          role: form.role,
+          phoneNumber: form.phoneNumber,
+        });
+
+        alert("Account created successfully. Please login.");
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
         setMode("login");
       }
     } catch (err) {
       console.error("AUTH ERROR:", err);
 
+<<<<<<< HEAD
       if (!err.response) {
         // No response at all: backend is down or blocked by CORS
         setError("Cannot reach the server. Make sure the backend is running on port 8080.");
@@ -94,15 +124,24 @@ const Login = () => {
         setError(
           err.response.data?.message || "Something went wrong. Please try again."
         );
+=======
+      if (err.response?.status === 401) {
+        setError("Invalid email or password");
+      } else {
+        setError("Server error. Please try again.");
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
       }
     } finally {
       setLoading(false);
     }
   };
 
+<<<<<<< HEAD
   const inputClass =
     "w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500";
 
+=======
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
   return (
     <div className="min-h-screen flex bg-white">
 
@@ -188,7 +227,11 @@ const Login = () => {
                 name="role"
                 value={form.role}
                 onChange={handleChange}
+<<<<<<< HEAD
                 className={inputClass}
+=======
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
               >
                 <option value="FARMER">🌾 Farmer</option>
                 <option value="DISTRIBUTOR">🚚 Distributor</option>
@@ -196,6 +239,7 @@ const Login = () => {
               </select>
             )}
 
+<<<<<<< HEAD
             {mode === "register" && (
               <input
                 name="name"
@@ -206,22 +250,34 @@ const Login = () => {
               />
             )}
 
+=======
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
             <input
               name="email"
               type="email"
               value={form.email}
               placeholder="Email address"
               onChange={handleChange}
+<<<<<<< HEAD
               className={inputClass}
+=======
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
             />
 
             {mode === "register" && (
               <input
                 name="phoneNumber"
                 value={form.phoneNumber}
+<<<<<<< HEAD
                 placeholder="Mobile number (10 digits)"
                 onChange={handleChange}
                 className={inputClass}
+=======
+                placeholder="Mobile number"
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
               />
             )}
 
@@ -229,6 +285,7 @@ const Login = () => {
               name="password"
               type="password"
               value={form.password}
+<<<<<<< HEAD
               placeholder={
                 mode === "register"
                   ? "Password (8+ chars, 1 uppercase, 1 number)"
@@ -237,6 +294,11 @@ const Login = () => {
               onChange={handleChange}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               className={inputClass}
+=======
+              placeholder="Password"
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
             />
 
             <button
@@ -258,4 +320,8 @@ const Login = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Login;
+=======
+export default Login;
+>>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
