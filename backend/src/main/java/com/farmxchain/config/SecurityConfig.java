@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.farmxchain.config;
 
 import com.farmxchain.security.JwtAuthFilter;
@@ -16,42 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-=======
-// package com.farmxchain.config;
-
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.web.SecurityFilterChain;
-
-// @Configuration
-// public class SecurityConfig {
-
-//     @Bean
-//     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-//         http
-//             .csrf(csrf -> csrf.disable())
-//             .httpBasic(b -> b.disable())
-//             .formLogin(f -> f.disable())
-//             .authorizeHttpRequests(auth -> auth
-//                 .requestMatchers("/api/**").permitAll()
-//                 .anyRequest().permitAll()
-//             );
-
-//         return http.build();
-//     }
-// }
-package com.farmxchain.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
 
 import java.util.List;
 
@@ -59,7 +22,6 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-<<<<<<< HEAD
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
 
         http
@@ -88,28 +50,11 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-=======
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http
-            .cors(cors -> {})   // 🔥 ENABLE CORS
-            .csrf(csrf -> csrf.disable())
-            .httpBasic(b -> b.disable())
-            .formLogin(f -> f.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll()
-                .anyRequest().permitAll()
-            );
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
 
         return http.build();
     }
 
-<<<<<<< HEAD
     // CORS CONFIGURATION
-=======
-    // 🔥 CORS CONFIGURATION
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
@@ -120,19 +65,9 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
-<<<<<<< HEAD
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-=======
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf

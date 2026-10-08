@@ -36,7 +36,6 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
 
-<<<<<<< HEAD
         if (user.getEmail() == null || user.getEmail().isBlank()) {
             return ResponseEntity.badRequest()
                     .body(Map.of("message", "Email is required"));
@@ -47,14 +46,11 @@ public class UserController {
                     .body(Map.of("message", "Password is required"));
         }
 
-=======
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest()
                     .body(Map.of("message", "Email already exists"));
         }
 
-<<<<<<< HEAD
         // Build a safe base name even if the frontend doesn't send "name"
         String baseName;
         if (user.getName() != null && !user.getName().isBlank()) {
@@ -72,19 +68,11 @@ public class UserController {
         if (user.getUsername() == null || user.getUsername().isBlank()) {
             user.setUsername(
                     baseName.toLowerCase().replaceAll("\\s+", "")
-=======
-        if (user.getUsername() == null || user.getUsername().isBlank()) {
-            user.setUsername(
-                    user.getName().toLowerCase().replaceAll("\\s+", "")
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
                             + System.currentTimeMillis()
             );
         }
 
-<<<<<<< HEAD
         // Never allow self-registration as ADMIN
-=======
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
         if (user.getRole() == null || user.getRole() == Role.ADMIN) {
             user.setRole(Role.CUSTOMER);
         }
@@ -106,7 +94,6 @@ public class UserController {
 
     // ===================== LOGIN =====================
     @PostMapping("/login")
-<<<<<<< HEAD
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData) {
 
         String email = loginData.get("email");
@@ -181,74 +168,3 @@ public class UserController {
         return ResponseEntity.ok(userOpt.get());
     }
 }
-=======
-public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData) {
-
-    String email = loginData.get("email");
-    String password = loginData.get("password");
-
-    Optional<User> userOpt = userRepository.findByEmail(email);
-    if (userOpt.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid credentials"));
-    }
-
-    User user = userOpt.get();
-
-    if (!passwordEncoder.matches(password, user.getPassword())) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid credentials"));
-    }
-
-    // 🔥 SAFETY CHECK
-    if (user.getUniqueId() == null || user.getUniqueId().isBlank()) {
-        user.setUniqueId(user.getRole().name() + "-" + UUID.randomUUID());
-        userRepository.save(user);
-    }
-
-    String token = jwtUtil.generateToken(
-            user.getUniqueId(),
-            user.getRole().name()
-    );
-
-    return ResponseEntity.ok(
-            Map.of(
-                    "token", token,
-                    "uniqueId", user.getUniqueId(),
-                    "username", user.getUsername(),
-                    "email", user.getEmail(),
-                    "role", user.getRole()
-            )
-    );
-}
-
-
- @GetMapping("/me")
-public ResponseEntity<?> getMyProfile(
-        @RequestHeader(value = "Authorization", required = false) String authHeader
-) {
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Missing token"));
-    }
-
-    String token = authHeader.substring(7);
-
-    if (!jwtUtil.validateToken(token)) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid token"));
-    }
-
-    String uniqueId = jwtUtil.extractUniqueId(token);
-
-    Optional<User> userOpt = userRepository.findByUniqueId(uniqueId);
-
-    if (userOpt.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("message", "User not found"));
-    }
-
-    return ResponseEntity.ok(userOpt.get());
-}
-}
->>>>>>> a388ef0ce6e7515e6af06fbce909ca27416d71cf
